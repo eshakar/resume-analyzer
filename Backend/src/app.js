@@ -5,8 +5,10 @@ const cors = require('cors');
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+const frontendUrl = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : '';
+
 app.use(cors({
-    origin: [process.env.FRONTEND_URL, 'http://localhost:5173'],
+    origin: [process.env.FRONTEND_URL, frontendUrl, 'http://localhost:5173'].filter(Boolean),
     credentials: true,
 }));
 
