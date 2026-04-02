@@ -6,7 +6,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
-    origin: "*",
+    origin: [process.env.FRONTEND_URL, 'https://resume-analyzer-taupe-five.vercel.app', 'http://localhost:5173'],
     credentials: true,
 }));
 
