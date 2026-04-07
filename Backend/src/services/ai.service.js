@@ -1,6 +1,6 @@
 const { GoogleGenAI } = require("@google/genai");
 const { z } = require("zod");
-const { zodToJsonSchema } = require("zod-to-json-schema");
+// Zod v4 has native z.toJSONSchema() — no need for zod-to-json-schema
 const puppeteer = require("puppeteer");
 
 const ai = new GoogleGenAI({
@@ -37,11 +37,11 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
   "matchScore": number (0-100),\n  "technicalQuestions": [{"question": string, "intention": string, "answer": string}],\n  "behavioralQuestions": [{"question": string, "intention": string, "answer": string}],\n  "skillGaps": [{"skill": string, "severity": "low" | "medium" | "high"}],\n  "preparationPlan": [{"day": number, "focus": string, "tasks": [string]}],\n  "title": string\n}\n\nIf any list is empty, return an empty array. If matchScore cannot be determined, return 0.\n\nResume: ${resume}\nSelf Description: ${selfDescription}\nJob Description: ${jobDescription}`
 
     const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.1-flash-lite-preview",
         contents: prompt,
         config: {
             responseMimeType: "application/json",
-            responseSchema: zodToJsonSchema(interviewReportSchema)
+            responseSchema: z.toJSONSchema(interviewReportSchema)
         }
     })
 
@@ -302,11 +302,11 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
                     `
 
     const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.1-flash-lite-preview",
         contents: prompt,
         config: {
             responseMimeType: "application/json",
-            responseSchema: zodToJsonSchema(resumePdfSchema),
+            responseSchema: z.toJSONSchema(resumePdfSchema),
         }
     })
 
