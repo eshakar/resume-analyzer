@@ -37,7 +37,7 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
   "matchScore": number (0-100),\n  "technicalQuestions": [{"question": string, "intention": string, "answer": string}],\n  "behavioralQuestions": [{"question": string, "intention": string, "answer": string}],\n  "skillGaps": [{"skill": string, "severity": "low" | "medium" | "high"}],\n  "preparationPlan": [{"day": number, "focus": string, "tasks": [string]}],\n  "title": string\n}\n\nIf any list is empty, return an empty array. If matchScore cannot be determined, return 0.\n\nResume: ${resume}\nSelf Description: ${selfDescription}\nJob Description: ${jobDescription}`
 
     const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-2.0-flash",
         contents: prompt,
         config: {
             responseMimeType: "application/json",
@@ -302,7 +302,7 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
                     `
 
     const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-2.0-flash",
         contents: prompt,
         config: {
             responseMimeType: "application/json",
